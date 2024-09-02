@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { login } from '../actions/action';
+import { login } from '../store/authSlice';
 
 const Auth = () => {
   const usernameRef = useRef();

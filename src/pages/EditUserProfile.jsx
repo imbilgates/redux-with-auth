@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import { useDispatch } from 'react-redux';
-import { login } from '../actions/action';
+import { editPage, login } from '../store/authSlice';
 
 function EditUserProfile() {
 
@@ -17,12 +17,16 @@ function EditUserProfile() {
     };
 
     dispatch(login(userDetails));
-    dispatch({ type: 'EDIT', payload: false })
+    toggleEditPage();
+  };
+
+  const toggleEditPage = () => {
+    dispatch(editPage());
   };
 
 
   return (
-    <form>
+    <>
 
       <input type="text"
         placeholder='edit username'
@@ -36,11 +40,11 @@ function EditUserProfile() {
       >change </button>
 
       <button
-        onClick={() => dispatch({ type: 'EDIT', payload: false })}
+        onClick={toggleEditPage}
         className='cancel-btn'
       >❌</button>
 
-    </form>
+    </>
   )
 }
 
