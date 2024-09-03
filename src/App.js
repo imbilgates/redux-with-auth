@@ -6,7 +6,7 @@ import Dashboard from './pages/Dashboard'
 
 function App() {
 
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.auth.user);
 
   return (
     <div className='App'>

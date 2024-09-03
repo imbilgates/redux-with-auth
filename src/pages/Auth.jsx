@@ -6,7 +6,8 @@ const Auth = () => {
   const usernameRef = useRef();
   const dispatch = useDispatch();
 
-  const handleUpdateUser = () => {
+  const handleUpdateUser = (e) => {
+    e.preventDefault()
     const username = usernameRef.current.value;
     if (username === '') return alert('username can\'t be empty');
     const userDetails = {
@@ -19,17 +20,17 @@ const Auth = () => {
   };
 
   return (
-    <form>
+    <form onSubmit={handleUpdateUser}>
 
       <h1>Auth Page</h1>
       <input
         type="text"
         placeholder='Username'
         ref={usernameRef}
+        autoFocus
       />
       <button
         type='submit'
-        onClick={handleUpdateUser}
         className='login-btn'
       >login</button>
 
