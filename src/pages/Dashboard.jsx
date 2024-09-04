@@ -1,39 +1,42 @@
-import React from 'react'
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../store/authSlice';
-import EditUserProfile from './EditUserProfile';
-import { toggleEdit } from '../store/commonSlice';
+
+import SimpleBackDrop from '../MUI/SimpleBackDrop';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
-  const showInput = useSelector((state) => state.common.showInput);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleLogout = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      dispatch(logout());
+      setIsLoading(false);
+    }, 2000);
+  }
+
+  if (isLoading) return <SimpleBackDrop />;
 
   return (
-    <>
-      {!showInput ? (
-        <div>
-          {user && (
-            <>
-              <h4>{"Welcome, " + user.name}</h4>
-              <p>{"your created mail id is: " + user.email}</p>
-            </>
-          )}
-          <button
-            onClick={() => dispatch(logout())}
-            className='logout-btn'
-          >Logout</button>
-          <button
-            onClick={() => dispatch(toggleEdit())}
-            className='edit-btn'
-          >Edit</button>
-        </div>
-      ) : (
-        <EditUserProfile />
+    <div>
+      {user && (
+        <>
+          <h4>{"Welcome, " + user.name}</h4>
+          <p>{"Your created mail id is: " + user.email}</p>
+        </>
       )}
-
-    </>
-  )
+      <button
+        onClick={handleLogout}
+        className='logout-btn'
+      >Logout</button>
+      <button
+        onClick={() => navigate('/edit')}
+        className='edit-btn'
+      >Edit</button>
+    </div>
+  );
 }
 
-export default Dashboard
+export default Dashboard;

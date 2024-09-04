@@ -1,9 +1,11 @@
 import React, { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from '../store/authSlice';
+import { useNavigate } from 'react-router-dom';
 
 const Auth = () => {
   const usernameRef = useRef();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleUpdateUser = (e) => {
@@ -17,6 +19,7 @@ const Auth = () => {
     };
 
     dispatch(login(userDetails));
+    navigate('dash')
   };
 
   return (

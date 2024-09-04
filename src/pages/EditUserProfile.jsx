@@ -1,10 +1,11 @@
 import React, { useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../store/authSlice';
-import { toggleEdit } from '../store/commonSlice';
+import { update } from '../store/authSlice';
+import { useNavigate } from 'react-router-dom';
 
 function EditUserProfile() {
 
+  const navigate = useNavigate();
   const usernameRef = useRef();
   const dispatch = useDispatch();
 
@@ -20,12 +21,8 @@ function EditUserProfile() {
       email: `${username}@example.com`
     };
 
-    dispatch(login(userDetails));
-    toggleEditPage();
-  };
-
-  const toggleEditPage = () => {
-    dispatch(toggleEdit());
+    dispatch(update(userDetails));
+    navigate('/dash')
   };
 
 
@@ -35,7 +32,7 @@ function EditUserProfile() {
       <input type="text"
         placeholder='edit username'
         ref={usernameRef}
-        defaultValue={user.name}
+        defaultValue={user?.name}
         autoFocus
       />
 
@@ -46,7 +43,7 @@ function EditUserProfile() {
       >change </button>
 
       <button
-        onClick={toggleEditPage}
+        onClick={() => navigate('/dash')}
         className='cancel-btn'
       >❌</button>
 
